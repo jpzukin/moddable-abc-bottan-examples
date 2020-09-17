@@ -13,9 +13,6 @@ M5Stack Core2より前の物理ボタンの状態を表示する実装例。
 ## m5stack-core2-legacy-abc-button
 m5stack-core1-abc-buttonと同じ処理で、物理ボタンをエミュレートした実装例。
 
-## m5stack-core2-abc-button
-m5stack-core1-abc-buttonと同じ処理で、Piuフレームワークっぽくした実装例。
-
 # 概要
 
 M5Stack Core2では物理ボタンの代わりに、タッチパネルの領域が液晶の表示範囲外まで伸びていて、その領域でのタッチされた場合に、M5Stackライブラリで物理ボタンとしてエミュレートしています。
