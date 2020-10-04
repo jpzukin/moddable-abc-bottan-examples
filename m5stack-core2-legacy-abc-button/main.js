@@ -9,7 +9,7 @@ const FONTS = {
 };
 
 const simpleButton = new Label(null, {
-	left: 0, right: 0, height: 60,
+	width:200, height: 80,
 	active: true,
 	skin: new Skin({
 		fill: "#35a16b",
@@ -20,7 +20,15 @@ const simpleButton = new Label(null, {
 		font: FONTS.MESSAGE,
 		color: "#eeeeee"
 	}),
-	string: "touch me"
+	string: "Touch me",
+	Behavior: class extends Behavior {
+        onTouchBegan(content, id, x, y) {
+			content.string = "Good!";
+		}
+		onTouchEnded(content, id, x, y) {
+			content.string = "Touch me";
+		}
+	}
 });
 
 const mainContainer = new Container(null, {
@@ -35,7 +43,7 @@ const withLegacyABCButton = new WithLegacyABCButton();
 // コンテンツの組合せ
 // application
 //      |
-//      +-- withABCButton (<=ここへ一層追加)
+//      +-- withLegacyABCButton (<=ここへ一層追加)
 //				|
 //				+-- mainContainer
 //						|
@@ -49,24 +57,24 @@ application.add(withLegacyABCButton);
 //
 global.button.a.onChanged = function () {
 	if (!this.read()) {
-		simpleButton.string = "Push A Button";
+		simpleButton.string = "Touch A";
 	} else {
-		simpleButton.string = "Release A Button";
+		simpleButton.string = "Release A";
 	}
 };
 
 global.button.b.onChanged = function () {
 	if (!this.read()) {
-		simpleButton.string = "Push B Button";
+		simpleButton.string = "Touch B";
 	} else {
-		simpleButton.string = "Release B Button";
+		simpleButton.string = "Release B";
 	}
 };
 
 global.button.c.onChanged = function () {
 	if (!this.read()) {
-		simpleButton.string = "Push C Button";
+		simpleButton.string = "Touch C";
 	} else {
-		simpleButton.string = "Release C Button";
+		simpleButton.string = "Release C";
 	}
 };

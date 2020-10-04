@@ -4,7 +4,8 @@
         "$(MODDABLE)/examples/manifest_piu.json"
     ],
     "config": {
-        "startupSound": false
+        "startupSound": false,
+        "autorotate": true
     },
     "modules": {
         "*": [
