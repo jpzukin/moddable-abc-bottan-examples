@@ -1,4 +1,4 @@
-import {} from "piu/MC";
+import { } from "piu/MC";
 
 // タッチボタンクラス
 class TouchButton {
@@ -8,13 +8,13 @@ class TouchButton {
     #width;
     #height;
 
-    constructor({x, y, width, height}) {
+    constructor({ x, y, width, height }) {
         this.#state = false;
         this.#x = x;
         this.#y = y;
         this.#width = width;
         this.#height = height;
-        this.onChanged = this.nop();
+        this.onChanged = this.nop;
     }
     read() {
         return this.#state;
@@ -31,21 +31,31 @@ class TouchButton {
         }
         return false;
     }
-    nop() {}
+    nop() { }
 }
 
 // 各ボタンの範囲はM5Core2ライブラリに合わせる
 global.button = {
-    a: new TouchButton({x:10,  y:241, width:110, height:40}),
-    b: new TouchButton({x:130, y:241, width:70,  height:40}),
-    c: new TouchButton({x:230, y:241, width:80,  height:40}),
+    a: new TouchButton({ x: 10, y: 241, width: 110, height: 40 }),
+    b: new TouchButton({ x: 130, y: 241, width: 70, height: 40 }),
+    c: new TouchButton({ x: 230, y: 241, width: 80, height: 40 }),
 };
+
+// 親コンテナの座標を基準に、子コンテンツの座標が計算される。
+// 画面表示外のタッチ領域に対応するために、コンテナに負の座標を設定しているので、
+// 負の座標を打ち消すコンテナを追加する。
+// 利用する時は、この内側のコンテナにメインコンテンツを追加する。
+const inner = new Container(null, {
+    left: 40, right: 40, top: 40, bottom: 40,
+    skin: new Skin({ fill: "red" })
+});
 
 // 画面範囲外のタッチをボタンイベントへ繋ぐコンテナテンプレート
 export const WithLegacyABCButton = Container.template($ => ({
     top: -40, left: -40, bottom: -40, right: -40,
     clip: false,
     active: true,
+    contents: [inner],
     Behavior: class extends Behavior {
         onTouchBegan(content, id, x, y) {
 
@@ -70,7 +80,7 @@ export const WithLegacyABCButton = Container.template($ => ({
 
             trace(`(${x}, ${y}) => (${tx},${ty})\n`);
             for (const touchButton of Object.values(global.button)) {
-                if (touchButton.hit(tx,ty)) {
+                if (touchButton.hit(tx, ty)) {
                     this.touchButton = touchButton;
                     this.touchButton.delegate(false);
                     break;

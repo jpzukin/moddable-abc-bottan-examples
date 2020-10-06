@@ -1,5 +1,5 @@
 import { } from "piu/MC";
-import {WithLegacyABCButton} from "withLegacyABCButton";
+import { WithLegacyABCButton } from "withLegacyABCButton";
 
 //
 //  メインコンテンツの準備
@@ -9,7 +9,7 @@ const FONTS = {
 };
 
 const simpleButton = new Label(null, {
-	width:200, height: 80,
+	left: 20, right: 20, height: 60,
 	active: true,
 	skin: new Skin({
 		fill: "#35a16b",
@@ -22,7 +22,7 @@ const simpleButton = new Label(null, {
 	}),
 	string: "Touch me",
 	Behavior: class extends Behavior {
-        onTouchBegan(content, id, x, y) {
+		onTouchBegan(content, id, x, y) {
 			content.string = "Good!";
 		}
 		onTouchEnded(content, id, x, y) {
@@ -32,7 +32,7 @@ const simpleButton = new Label(null, {
 });
 
 const mainContainer = new Container(null, {
-	left: 0, right: 0, top: 0, bottom: 0,
+	left: 10, right: 10, top: 10, bottom: 10,
 	skin: new Skin({ fill: "#222222" }),
 });
 
@@ -49,7 +49,8 @@ const withLegacyABCButton = new WithLegacyABCButton();
 //						|
 //						+-- simpleButton
 mainContainer.add(simpleButton);
-withLegacyABCButton.add(mainContainer);
+// ※ 負の値を打ち消すために内部コンテナに追加する。
+withLegacyABCButton.first.add(mainContainer);
 application.add(withLegacyABCButton);
 
 //
