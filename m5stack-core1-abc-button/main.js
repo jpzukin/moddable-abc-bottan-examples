@@ -65,3 +65,5 @@ global.button.c.onChanged = function () {
 		simpleButton.string = "Release C Button";
 	}
 };
+
+export default application;
